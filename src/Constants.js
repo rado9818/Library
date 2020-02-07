@@ -12,12 +12,15 @@ export const LAST_NAME = appName + 'last_name';
 
 export const ORGANIZATION = appName + 'organization';
 
-export const url = "http://46.101.233.213";
+export const registerEndpoint = '/register';
 
-export const api = "api/";
+export const url = "http://localhost:8080/";
 
-export const loginUrl = url + "/users/login";
+export const api = "api/v1";
 
+export const loginUrl = url + api + registerEndpoint;
+
+export const registerUrl = url + api + registerEndpoint;
 
 export const usersMeEndpoint =  url + "/users/me";
 
