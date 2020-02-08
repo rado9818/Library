@@ -12,7 +12,7 @@ function App() {
           <Route
               exact
               path="/"
-              component={RegisterScreen}
+              component={LogInScreen}
           />
 
           <Route

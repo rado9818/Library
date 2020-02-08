@@ -35,21 +35,9 @@ export default class LogInScreen extends AuthenticationComponent {
       grant_type: process.env.REACT_APP_GRANT_TYPE_PASS
     };
 
-    var formBody = [];
-    for (var property in details) {
-      var encodedKey = encodeURIComponent(property);
-      var encodedValue = encodeURIComponent(details[property]);
-      formBody.push(encodedKey + "=" + encodedValue);
-    }
-    formBody = formBody.join("&");
-
-    console.log("login url ", loginUrl);
-    console.log("body login ", formBody);
-    //packing x-www-form-urlencoded data finished
-
     return fetch(loginUrl, {
       method: "POST",
-      body: formBody,
+      body: JSON.stringify(details),
       headers: {
         Accept: "application/json",
         AccessControlAllowOrigin: "*",
@@ -57,7 +45,7 @@ export default class LogInScreen extends AuthenticationComponent {
         AccessControlExposeHeaders: "Content-Length, X-JSON",
         AccessControlAllowMethods:
           "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+        'Content-Type': 'application/json',
       }
     })
       .then(response => response.json())
@@ -70,7 +58,6 @@ export default class LogInScreen extends AuthenticationComponent {
           var data = responseJson.scope.split(", ");
           bake_cookie(Constants.ORGANIZATION, data[5]);
 
-          this.getUserInfo();
         } else {
           this.setState({
             isErrorDialogOpen: true,
@@ -82,38 +69,6 @@ export default class LogInScreen extends AuthenticationComponent {
       .catch(error => {
         console.error(error);
       });
-  }
-
-  async getUserInfo() {
-    let that = this;
-
-
-    return fetch(usersMeEndpoint+"?access_token="+read_cookie(accessToken), {
-      method: "GET",
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-
-        console.log(responseJson);
-
-        bake_cookie(Constants.ROLE, responseJson.role);
-        bake_cookie(Constants.FIRST_NAME, responseJson.first_name);
-        bake_cookie(Constants.LAST_NAME, responseJson.last_name);
-
-        that.setState({
-          localDashboardRedirect: true,
-          roleString: responseJson.role === Constants.ROLE_STUDENT ? "student" : responseJson.role === Constants.ROLE_MENTOR ? "mentor" : "teacher"
-        });
-
-      })
-      .catch(error => {
-        console.error(error);
-      });
-
-
-
-
-
   }
 
   getButtonText() {

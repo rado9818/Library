@@ -1,13 +1,12 @@
 import React from "react";
 
-import AuthFormComponent from "./../components/AuthFormComponent";
 import AuthenticationComponent from "./AuthenticationComponent";
 import {
   accessToken,
   loginUrl, registerUrl, usersMeEndpoint,
 } from "../../Constants";
 import * as Constants from "../../Constants";
-import {bake_cookie, read_cookie} from "sfcookies";
+import {bake_cookie} from "sfcookies";
 import RegisterFormComponent from "../components/RegisterFormComponent";
 
 export default class RegisterScreen extends AuthenticationComponent {
@@ -36,29 +35,16 @@ export default class RegisterScreen extends AuthenticationComponent {
       confirmPassword: this.state.confirmPassword,
     };
 
-    var formBody = [];
-    for (var property in details) {
-      var encodedKey = encodeURIComponent(property);
-      var encodedValue = encodeURIComponent(details[property]);
-      formBody.push(encodedKey + "=" + encodedValue);
-    }
-    formBody = formBody.join("&");
-
-    console.log("login url ", loginUrl);
-    console.log("body login ", formBody);
-    //packing x-www-form-urlencoded data finished
-
     return fetch(registerUrl, {
       method: "POST",
-      body: formBody,
+      body: JSON.stringify(details),
       headers: {
         Accept: "application/json",
         AccessControlAllowOrigin: "*",
         AccessControlAllowHeaders: "*",
-        AccessControlExposeHeaders: "Content-Length, X-JSON",
+        'Content-Type': 'application/json',
         AccessControlAllowMethods:
           "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
       }
     })
       .then(response => response.json())
@@ -71,7 +57,6 @@ export default class RegisterScreen extends AuthenticationComponent {
           var data = responseJson.scope.split(", ");
           bake_cookie(Constants.ORGANIZATION, data[5]);
 
-          this.getUserInfo();
         } else {
           this.setState({
             isErrorDialogOpen: true,
@@ -83,38 +68,6 @@ export default class RegisterScreen extends AuthenticationComponent {
       .catch(error => {
         console.error(error);
       });
-  }
-
-  async getUserInfo() {
-    let that = this;
-
-
-    return fetch(usersMeEndpoint+"?access_token="+read_cookie(accessToken), {
-      method: "GET",
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-
-        console.log(responseJson);
-
-        bake_cookie(Constants.ROLE, responseJson.role);
-        bake_cookie(Constants.FIRST_NAME, responseJson.first_name);
-        bake_cookie(Constants.LAST_NAME, responseJson.last_name);
-
-        that.setState({
-          localDashboardRedirect: true,
-          roleString: responseJson.role === Constants.ROLE_STUDENT ? "student" : responseJson.role === Constants.ROLE_MENTOR ? "mentor" : "teacher"
-        });
-
-      })
-      .catch(error => {
-        console.error(error);
-      });
-
-
-
-
-
   }
 
   getButtonText() {

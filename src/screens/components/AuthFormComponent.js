@@ -14,6 +14,7 @@ import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions/DialogActions";
+import RegisterRedirect from "./RegisterRedirect";
 
 const styles = theme => ({
   layout: {
@@ -55,9 +56,8 @@ function SignIn(props) {
   return (
     <React.Fragment>
 
-    {/*  <DashboardRedirectComponent
-        context={context}
-        role={context.state.roleString}/>*/}
+      <RegisterRedirect
+        context={context}/>
 
       <CssBaseline />
       <main className={classes.layout}>
@@ -121,6 +121,18 @@ function SignIn(props) {
               className={classes.submit}
             >
               {buttonText()}
+            </Button>
+
+            <Button
+              fullWidth
+              onClick={() => context.setState({
+                onRegisterRedirect: true
+              })}
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Нямате акаунт?
             </Button>
           </form>
         </Paper>
