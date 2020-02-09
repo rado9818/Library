@@ -15,7 +15,9 @@ export default class EventScreen extends AuthenticationComponent {
   constructor(props) {
     super(props);
     this.state = {
-      events : []
+      events : [],
+      startDate: "2020-02-10",
+      description: " "
     };
     this.onCreateEvent = this.onCreateEvent.bind(this);
     this.onErrorDialogClose = this.onErrorDialogClose.bind(this);
@@ -31,7 +33,25 @@ export default class EventScreen extends AuthenticationComponent {
     });
   }
 
+  handleStartDateChange = date => {
+    this.setState({startDate: date});
+  };
+
+  handleEndDateChange = date => {
+    this.setState({endDate: date});
+  };
+
+  handleNameChange = name => {
+    console.log("chanhinge name")
+    this.setState({name: name.target.value});
+  };
+
+  handleDescriptionChange = description => {
+    this.setState({description: description.target.value})
+  }
+
   onCreateEvent(){
+    console.log("wdgwe", this.state);
     let that = this;
     return fetch(eventCreateEndpoint, {
       method: "POST",
@@ -57,6 +77,10 @@ export default class EventScreen extends AuthenticationComponent {
         <EventCreateComponent
           context={this}
           onCreateEvent={this.onCreateEvent}
+          onStartDateChange={this.handleStartDateChange}
+          onEndDateChange={this.handleEndDateChange}
+          onNameChange={this.handleNameChange}
+          onDescriptionChange={this.handleDescriptionChange}
         />
       </div>
     );

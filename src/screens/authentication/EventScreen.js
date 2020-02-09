@@ -1,5 +1,4 @@
 import React from "react";
-
 import AuthFormComponent from "./../components/AuthFormComponent";
 import AuthenticationComponent from "./AuthenticationComponent";
 import {
@@ -24,7 +23,7 @@ export default class EventScreen extends AuthenticationComponent {
   componentDidMount() {
     document.title = "Събития - Libraries";
     this.onGetEvents();
-  }
+  } 
 
   getButtonText() {
     return "Вход";
@@ -47,7 +46,9 @@ export default class EventScreen extends AuthenticationComponent {
         .then(response => response.json())
         .then(responseJson => {
           console.log("events ",responseJson);
-          that.setState({events: responseJson.results});
+          that.setState({events: responseJson.results}, () => {
+            console.log("evvs ", that.state.events)
+          });
 
         })
         .catch(error => {
@@ -58,13 +59,12 @@ export default class EventScreen extends AuthenticationComponent {
 
   render() {
     return (
-      <div>
         <EventComponent
           context={this}
           buttonText={this.getButtonText}
-          onErrorDialogClose={this.onErrorDialogClose}
+          onErrorDialogClose={this.onErrorDialogClose}  
         />
-      </div>
+
     );
   }
 }
