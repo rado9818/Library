@@ -23,6 +23,10 @@ import Button from "@material-ui/core/Button";
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Box from "@material-ui/core/Box";
 
 let rows = [
 
@@ -256,6 +260,11 @@ export default function EnhancedTable(props) {
   const handleChangeDense = event => {
     setDense(event.target.checked);
   };
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   const isSelected = name => selected.indexOf(name) !== -1;
 
@@ -264,6 +273,14 @@ export default function EnhancedTable(props) {
   return (
       <div className={classes.root}>
         <Paper className={classes.paper}>
+          <AppBar position="static">
+            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+              <Tab label="List"  />
+              <Tab label="Calendar"  />
+            </Tabs>
+          </AppBar>
+          <TabPanel value={value} index={0}>
+
           <EnhancedTableToolbar numSelected={selected.length} />
           <TableContainer>
             <Table
@@ -331,17 +348,44 @@ export default function EnhancedTable(props) {
               onChangePage={handleChangePage}
               onChangeRowsPerPage={handleChangeRowsPerPage}
           />
+          </TabPanel>
 
+          <TabPanel value={value} index={1}>
 
-          <Calendar
-              localizer={localizer}
-              events={rows}
-              startAccessor="start"
-              endAccessor="end"
-              style={{height: 500}}
-          />
+            <Calendar
+                localizer={localizer}
+                events={rows}
+                startAccessor="start"
+                endAccessor="end"
+                style={{height: 500}}
+            />
+          </TabPanel>
 
         </Paper>
       </div>
   );
 }
+
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+      <Typography
+          component="div"
+          role="tabpanel"
+          hidden={value !== index}
+          id={`simple-tabpanel-${index}`}
+          aria-labelledby={`simple-tab-${index}`}
+          {...other}
+      >
+        {value === index && <Box p={3}>{children}</Box>}
+      </Typography>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
