@@ -28,8 +28,11 @@ export default class LogInScreen extends AuthenticationComponent {
     console.log("log in: ", this.state.email, " ", this.state.password);
     //packing x-www-form-urlencoded data
     var details = {
-      email: this.state.email,
+      username: this.state.email,
       password: (this.state.password),
+      client_id: this.state.email,
+      client_secret: process.env.REACT_APP_CLIENT_SECRET,
+      grant_type: process.env.REACT_APP_GRANT_TYPE_PASS
     };
 
     return fetch(loginUrl, {

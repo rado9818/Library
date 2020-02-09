@@ -18,7 +18,7 @@ export const url = "http://localhost:8080/";
 
 export const api = "api/v1";
 
-export const loginUrl = url + api + registerEndpoint;
+export const loginUrl = url + api + "/login";
 
 export const registerUrl = url + api + registerEndpoint;
 
