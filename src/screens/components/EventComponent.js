@@ -20,7 +20,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Button from "@material-ui/core/Button";
-
+import { Calendar, momentLocalizer } from 'react-big-calendar'
+import moment from "moment";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 let rows = [
 
@@ -240,6 +242,7 @@ export default function EnhancedTable(props) {
 
     setSelected(newSelected);
   };
+  const localizer = momentLocalizer(moment);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -328,6 +331,16 @@ export default function EnhancedTable(props) {
               onChangePage={handleChangePage}
               onChangeRowsPerPage={handleChangeRowsPerPage}
           />
+
+
+          <Calendar
+              localizer={localizer}
+              events={rows}
+              startAccessor="start"
+              endAccessor="end"
+              style={{height: 500}}
+          />
+
         </Paper>
       </div>
   );
