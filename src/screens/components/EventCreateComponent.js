@@ -5,9 +5,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-import {List} from "@material-ui/icons";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import {TextField} from "@material-ui/core";
 
 const styles = theme => ({
@@ -57,10 +54,15 @@ function EventCreateComponent(props) {
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <TextField/>
-          <Button onClick={() => {
+          <TextField fullWidth/>
+          <TextField fullWidth/>
+
+          <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
             onCreateEvent()
-          }}/>
+          }}>Направи</Button>
         </Paper>
       </main>
     </React.Fragment>
