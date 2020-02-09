@@ -27,6 +27,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from '@material-ui/icons/Add';
+import CreateEventRedirect from "./CreateEventRedirect";
 
 let rows = [
 
@@ -272,6 +275,8 @@ export default function EnhancedTable(props) {
 
   return (
       <div className={classes.root}>
+        <CreateEventRedirect
+            context={props.context}/>
         <Paper className={classes.paper}>
           <AppBar position="static">
             <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
@@ -362,6 +367,15 @@ export default function EnhancedTable(props) {
           </TabPanel>
 
         </Paper>
+
+        <Fab color="primary" aria-label="add" style={{float: "right", marginRight: 20}}
+        onClick={()=>{
+          props.context.setState({
+            onCreateEvent: true
+          })
+        }}>
+          <AddIcon />
+        </Fab>
       </div>
   );
 }

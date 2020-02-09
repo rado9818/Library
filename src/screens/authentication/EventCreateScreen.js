@@ -15,9 +15,11 @@ export default class EventScreen extends AuthenticationComponent {
   constructor(props) {
     super(props);
     this.state = {
-      events : [],
-      startDate: "2020-02-10",
-      description: " "
+      fromDate: "2020-02-10",
+      description: " ",
+      rooms: [
+        "HALL - 1", "HALL - 2"
+      ]
     };
     this.onCreateEvent = this.onCreateEvent.bind(this);
     this.onErrorDialogClose = this.onErrorDialogClose.bind(this);
@@ -34,11 +36,11 @@ export default class EventScreen extends AuthenticationComponent {
   }
 
   handleStartDateChange = date => {
-    this.setState({startDate: date});
+    this.setState({fromDate: date.target.value});
   };
 
   handleEndDateChange = date => {
-    this.setState({endDate: date});
+    this.setState({toDate: date.target.value});
   };
 
   handleNameChange = name => {
@@ -51,18 +53,19 @@ export default class EventScreen extends AuthenticationComponent {
   }
 
   onCreateEvent(){
-    console.log("wdgwe", this.state);
     let that = this;
     return fetch(eventCreateEndpoint, {
       method: "POST",
+      body: JSON.stringify(that.state),
       headers:{
+        Accept: "application/json",
+        'Content-Type': 'application/json',
         "Auth": read_cookie(USER_ID)
       },
     })
         .then(response => response.json())
         .then(responseJson => {
-          console.log("events ",responseJson);
-          that.setState({events: responseJson.results});
+          alert("Създадено");
 
         })
         .catch(error => {

@@ -18,6 +18,8 @@ import {
 import Checkbox from '@material-ui/core/Checkbox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import EventsRedirect from "./EventsRedirect";
+import NavBarComponent from "./NavBarComponent";
 
 const styles = theme => ({
   layout: {
@@ -61,8 +63,17 @@ function EventCreateComponent(props) {
   
   return (
     <React.Fragment>
-      
+      <EventsRedirect
+        context={props.context}/>
       <CssBaseline />
+
+      <NavBarComponent
+      context={context}
+      onBackArrowClicked={()=>{
+        props.context.setState({
+          eventsRedirect: true
+        })
+      }}/>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <h3>Желая да използвам семинарната зала на</h3>
