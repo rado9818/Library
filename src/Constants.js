@@ -26,6 +26,6 @@ export const usersMeEndpoint =  url + "/users/me";
 
 export const requests =  "requests";
 
-export const ROLE_STUDENT = 1;
+export const eventListEndpoint = url + api + "/event/list";
 
-export const ROLE_MENTOR = 2;
+export const USER_ID = appName + "/user";

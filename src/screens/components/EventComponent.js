@@ -2,18 +2,9 @@ import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import FormControl from "@material-ui/core/FormControl";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import LockIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-import Dialog from "@material-ui/core/Dialog/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText/DialogContentText";
-import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 import {List} from "@material-ui/icons";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -54,7 +45,7 @@ const styles = theme => ({
 /**
  * @return {boolean}
  */
-function SignIn(props) {
+function EventComponent(props) {
   const { classes } = props;
   const { buttonText, loginAction, context, onErrorDialogClose } = props;
 
@@ -85,4 +76,4 @@ function SignIn(props) {
 }
 
 
-export default withStyles(styles)(SignIn);
+export default withStyles(styles)(EventComponent);

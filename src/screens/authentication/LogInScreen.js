@@ -48,12 +48,13 @@ export default class LogInScreen extends AuthenticationComponent {
       .then(response => response.json())
       .then(responseJson => {
         console.log("login response ", responseJson);
-        if (responseJson.access_token && responseJson.refresh_token) {
-          AuthenticationComponent.saveData(responseJson.access_token);
-          AuthenticationComponent.saveRefreshToken(responseJson.refresh_token);
+        if (responseJson.user !== null) {
 
-          var data = responseJson.scope.split(", ");
-          bake_cookie(Constants.ORGANIZATION, data[5]);
+          bake_cookie(Constants.USER_ID, responseJson.user.id);
+
+          that.setState({
+            eventsRedirect: true
+          })
 
         } else {
           this.setState({

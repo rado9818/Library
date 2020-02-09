@@ -15,6 +15,7 @@ import DialogContent from "@material-ui/core/DialogContent/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 import RegisterRedirect from "./RegisterRedirect";
+import EventsRedirect from "./EventsRedirect";
 
 const styles = theme => ({
   layout: {
@@ -55,6 +56,9 @@ function SignIn(props) {
 
   return (
     <React.Fragment>
+
+      <EventsRedirect
+        context={context}/>
 
       <RegisterRedirect
         context={context}/>
