@@ -28,4 +28,6 @@ export const requests =  "requests";
 
 export const eventListEndpoint = url + api + "/event/list";
 
+export const eventCreateEndpoint = url + api + "/register/event";
+
 export const USER_ID = appName + "/user";

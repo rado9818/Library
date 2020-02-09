@@ -5,6 +5,7 @@ import {HashRouter, Route, Switch} from "react-router-dom";
 import LogInScreen from "./screens/authentication/LogInScreen";
 import RegisterScreen from "./screens/authentication/RegisterScreen";
 import EventScreen from "./screens/authentication/EventScreen";
+import EventCreateScreen from "./screens/authentication/EventCreateScreen";
 
 function App() {
   return (
@@ -26,6 +27,12 @@ function App() {
               exact
               path="/events"
               component={EventScreen}
+          />
+
+        <Route
+              exact
+              path="/events/create"
+              component={EventCreateScreen}
           />
 
         </Switch>
