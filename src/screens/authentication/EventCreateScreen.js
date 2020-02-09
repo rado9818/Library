@@ -36,11 +36,11 @@ export default class EventScreen extends AuthenticationComponent {
   }
 
   handleStartDateChange = date => {
-    this.setState({fromDate: date.target.value});
+    this.setState({fromDate: date.toISOString().split('T')[0]});
   };
 
   handleEndDateChange = date => {
-    this.setState({toDate: date.target.value});
+    this.setState({toDate: date.toISOString().split('T')[0]});
   };
 
   handleNameChange = name => {

@@ -6,10 +6,9 @@ import Paper from "@material-ui/core/Paper";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { KeyboardDatePicker } from '@material-ui/pickers';
-import Grid from '@material-ui/core/Grid';
+import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 import {TextField} from "@material-ui/core";
+import DateFnsUtils from '@date-io/date-fns';
 
 import React from 'react';
 import {
@@ -62,70 +61,100 @@ function EventCreateComponent(props) {
   const { onCreateEvent, context, onStartDateChange, onEndDateChange} = props;
   
   return (
-    <React.Fragment>
-      <EventsRedirect
-        context={props.context}/>
-      <CssBaseline />
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
 
-      <NavBarComponent
-      context={context}
-      onBackArrowClicked={()=>{
-        props.context.setState({
-          eventsRedirect: true
-        })
-      }}/>
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <h3>Желая да използвам семинарната зала на</h3>
-          {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container justify="space-around">
-        <KeyboardDatePicker
-          disableToolbar
-          variant="inline"
-          format="MM/dd/yyyy"
-          margin="normal"
-          id="date-picker-inline"
-          label="Date picker inline"
-          value={context.state.startDate}
-          onChange={onStartDateChange}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-        </Grid>
-        </MuiPickersUtilsProvider> */}
-        
-        <TextField id="standard-basic" label="Start Date" onChange={(onStartDateChange)} />
-        <TextField id="standard-basic" label="End Date" onChange={onEndDateChange} />
-        <TextField id="standard-basic" label="Name of the event" onChange={(e) => {
-          context.setState({name: e.target.value});
-        }} />
-        <FormControlLabel control= {<Checkbox
-            checked={context.state.allDay}
-            onChange={(event) => {context.setState({allDay: event.target.checked})}}
-            value="checked"
-            color="primary"
-           />}label="All Day" />
-        <TextField
-          id="standard-multiline-static"
-          label="Description"
-          multiline
-          rows="4"
-          value={context.state.description}
-          onChange={(e) => {
-            context.setState({description: e.target.value});
-          }}
-        />
-          <Button
-              variant="contained"
-              color="primary"
-              onClick={() => {
-                console.log("clicked");
-            onCreateEvent()
-          }}>СЪЗДАЙ</Button>
-        </Paper>
-      </main>
-    </React.Fragment>
+          <React.Fragment>
+          <EventsRedirect
+            context={props.context}/>
+          <CssBaseline />
+
+          <NavBarComponent
+          context={context}
+          onBackArrowClicked={()=>{
+            props.context.setState({
+              eventsRedirect: true
+            })
+          }}/>
+          <main className={classes.layout}>
+            <Paper className={classes.paper}>
+              <h3>Желая да използвам семинарната зала на</h3>
+              {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <Grid container justify="space-around">
+            <KeyboardDatePicker
+              disableToolbar
+              variant="inline"
+              format="MM/dd/yyyy"
+              margin="normal"
+              id="date-picker-inline"
+              label="Date picker inline"
+              value={context.state.startDate}
+              onChange={onStartDateChange}
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+            />
+            </Grid>
+            </MuiPickersUtilsProvider> */}
+
+              <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  format="yyyy-MM-dd"
+                  margin="normal"
+                  id="date-picker-inline"
+                  label="From"
+                  onChange={(onStartDateChange)}
+                  value={props.context.state.fromDate}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+              />
+
+              <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  format="yyyy-MM-dd"
+                  margin="normal"
+                  id="date-picker-inline"
+                  label="To"
+                  onChange={(onEndDateChange)}
+                  value={props.context.state.toDate}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+              />
+
+
+            <TextField id="standard-basic" label="Name of the event" onChange={(e) => {
+              context.setState({name: e.target.value});
+            }} />
+            <FormControlLabel control= {<Checkbox
+                checked={context.state.allDay}
+                onChange={(event) => {context.setState({allDay: event.target.checked})}}
+                value="checked"
+                color="primary"
+               />}label="All Day" />
+            <TextField
+              id="standard-multiline-static"
+              label="Description"
+              multiline
+              rows="4"
+              value={context.state.description}
+              onChange={(e) => {
+                context.setState({description: e.target.value});
+              }}
+            />
+              <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    console.log("clicked");
+                onCreateEvent()
+              }}>СЪЗДАЙ</Button>
+            </Paper>
+          </main>
+        </React.Fragment>
+      </MuiPickersUtilsProvider>
   );
 }
 
